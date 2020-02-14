@@ -1,0 +1,28 @@
+name: 'Tag and Release'
+description: 'Creates a new GitHub release from a specified commit'
+inputs:
+  tag_name:
+    description: 'The name of the tag to create, e.g. v1.0.0'
+    required: true
+  release_name:
+    description: 'The name of the release, defaults to tag_name'
+  body:
+    description: 'Body test of the release'
+  draft:
+    description: 'Set to `true` to create a draft release (default: false)'
+    default: false
+  prerelease:
+    description: 'Set to `true` to mark as a pre-release (default: false)'
+    default: false
+  commit:
+    description: 'The commit to tag and release (default: ${GITHUB_SHA})'
+outputs:
+  id:
+    description: 'The ID of the release'
+  html_url:
+    description: 'The URL of the human-readable web-page of the release'
+  upload_url:
+    description: 'The URL for uploading assets to the release'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

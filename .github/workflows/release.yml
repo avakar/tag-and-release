@@ -1,0 +1,21 @@
+name: Release
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: avakar/derive-version@03dcaa4e9eb54dc4eb10845fde513399ae876f82
+      id: version
+      with:
+        file: VERSION
+    - name: Tag and create release v${{ steps.version.outputs.version }}
+      uses: ./
+      with:
+        tag_name: v${{ steps.version.outputs.version }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
